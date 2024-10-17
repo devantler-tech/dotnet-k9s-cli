@@ -16,7 +16,7 @@ public class GetCommandTests
   {
     {
       // Arrange
-      string expectedBinary = "flux-osx-x64";
+      string expectedBinary = "k9s-osx-x64";
 
       // Act
       string actualBinary = Path.GetFileName(K9s.GetCommand(PlatformID.Unix, Architecture.X64, "osx-x64").TargetFilePath);
@@ -33,7 +33,7 @@ public class GetCommandTests
   public void GetCommand_ShouldReturnOSXArm64Binary()
   {
     // Arrange
-    string expectedBinary = "flux-osx-arm64";
+    string expectedBinary = "k9s-osx-arm64";
 
     // Act
     string actualBinary = Path.GetFileName(K9s.GetCommand(PlatformID.Unix, Architecture.Arm64, "osx-arm64").TargetFilePath);
@@ -49,7 +49,7 @@ public class GetCommandTests
   public void GetCommand_ShouldReturnLinuxArm64Binary()
   {
     // Arrange
-    string expectedBinary = "flux-linux-arm64";
+    string expectedBinary = "k9s-linux-arm64";
 
     // Act
     string actualBinary = Path.GetFileName(K9s.GetCommand(PlatformID.Unix, Architecture.Arm64, "linux-arm64").TargetFilePath);
@@ -65,7 +65,7 @@ public class GetCommandTests
   public void GetCommand_ShouldReturnWindowsX64Binary()
   {
     // Arrange
-    string expectedBinary = "flux-win-x64.exe";
+    string expectedBinary = "k9s-win-x64.exe";
 
     // Act
     string actualBinary = Path.GetFileName(K9s.GetCommand(PlatformID.Win32NT, Architecture.X64, "win-x64").TargetFilePath);
@@ -81,7 +81,7 @@ public class GetCommandTests
   public void GetCommand_ShouldReturnWindowsArm64Binary()
   {
     // Arrange
-    string expectedBinary = "flux-win-arm64.exe";
+    string expectedBinary = "k9s-win-arm64.exe";
 
     // Act
     string actualBinary = Path.GetFileName(K9s.GetCommand(PlatformID.Win32NT, Architecture.Arm64, "win-arm64").TargetFilePath);
