@@ -57,6 +57,13 @@ public static class K9s
       Command.WithArguments(
         ["--kubeconfig", kubeconfig, "--context", context]
       );
-    _ = await CLI.RunAsync(command, cancellationToken: cancellationToken).ConfigureAwait(false);
+    try
+    {
+      _ = await CLI.RunAsync(command, cancellationToken: cancellationToken).ConfigureAwait(false);
+    }
+    catch (Exception ex)
+    {
+      throw new K9sException(ex.Message);
+    }
   }
 }
