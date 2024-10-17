@@ -27,7 +27,7 @@
 │       │   └── native
 │       └── win-x64
 │           └── native
-└── Devantler.K9sCLITests
+└── Devantler.K9sCLI.Tests
     ├── K9sTests
     └── assets
 

@@ -1,6 +1,7 @@
 ﻿using System.Globalization;
 using System.Runtime.InteropServices;
 using CliWrap;
+using CliWrap.Exceptions;
 using Devantler.CLIRunner;
 
 namespace Devantler.K9sCLI;
@@ -57,6 +58,13 @@ public static class K9s
       Command.WithArguments(
         ["--kubeconfig", kubeconfig, "--context", context]
       );
-    _ = await CLI.RunAsync(command, cancellationToken: cancellationToken).ConfigureAwait(false);
+    try
+    {
+      _ = await CLI.RunAsync(command, cancellationToken: cancellationToken).ConfigureAwait(false);
+    }
+    catch (CommandExecutionException ex)
+    {
+      throw new K9sException(ex.Message);
+    }
   }
 }
