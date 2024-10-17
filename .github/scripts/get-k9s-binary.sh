@@ -29,6 +29,6 @@ get "https://getbin.io/derailed/k9s?os=linux&arch=amd64" "usr/bin/k9s" "Devantle
 get "https://getbin.io/derailed/k9s?os=linux&arch=arm64" "usr/bin/k9s" "Devantler.K9sCLI/runtimes/linux-arm64/native" "k9s-linux-arm64" "tar"
 get "https://getbin.io/derailed/k9s?os=windows&arch=amd64" "k9s.exe" "Devantler.K9sCLI/runtimes/win-x64/native" "k9s-win-x64.exe" "zip"
 get "https://getbin.io/derailed/k9s?os=windows&arch=arm64" "k9s.exe" "Devantler.K9sCLI/runtimes/win-arm64/native" "k9s-win-arm64.exe" "zip"
-rm -rf "Devantler.K9sCLI/runtimes/*/native/usr"
-rm -rf "Devantler.K9sCLI/runtimes/*/native/LICENSE"
-rm -rf "Devantler.K9sCLI/runtimes/*/native/README.md"
+rm -rf Devantler.K9sCLI/runtimes/*/native/usr
+rm -rf Devantler.K9sCLI/runtimes/*/native/LICENSE
+rm -rf Devantler.K9sCLI/runtimes/*/native/README.md
