@@ -8,7 +8,6 @@
   <summary>Show/hide folder structure</summary>
 
 <!-- readme-tree start -->
-
 ```
 .
 ├── .github
@@ -24,15 +23,16 @@
 │       │   └── native
 │       ├── osx-x64
 │       │   └── native
+│       ├── win-arm64
+│       │   └── native
 │       └── win-x64
 │           └── native
-└── Devantler.K9sCLI.Tests
+└── Devantler.K9sCLITests
     ├── K9sTests
     └── assets
 
-18 directories
+20 directories
 ```
-
 <!-- readme-tree end -->
 
 </details>
