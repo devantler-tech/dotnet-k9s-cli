@@ -25,7 +25,6 @@ public class RunAsyncTests
     // Act
     await Kind.DeleteClusterAsync(clusterName, cancellationToken1);
     await Kind.CreateClusterAsync(clusterName, configPath, cancellationToken1);
-
     var task = K9s.RunAsync(cancellationToken: cancellationToken1);
     await Task.Delay(5000);
     await source.CancelAsync();
