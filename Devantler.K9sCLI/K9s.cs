@@ -1,6 +1,7 @@
 ﻿using System.Globalization;
 using System.Runtime.InteropServices;
 using CliWrap;
+using CliWrap.Exceptions;
 using Devantler.CLIRunner;
 
 namespace Devantler.K9sCLI;
@@ -60,12 +61,8 @@ public static class K9s
     try
     {
       var (exitCode, result) = await CLI.RunAsync(command, cancellationToken: cancellationToken).ConfigureAwait(false);
-      if (exitCode != 0)
-      {
-        throw new K9sException(result);
-      }
     }
-    catch (Exception ex)
+    catch (CommandExecutionException ex)
     {
       throw new K9sException(ex.Message);
     }
