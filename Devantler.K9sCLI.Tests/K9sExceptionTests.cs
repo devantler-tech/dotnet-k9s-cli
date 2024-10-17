@@ -1,6 +1,6 @@
 using Devantler.K9sCLI;
 
-namespace Devantler.K9sCLITests;
+namespace Devantler.K9sCLI.Tests;
 
 /// <summary>
 /// Tests for the <see cref="K9sException"/> class.

@@ -5,7 +5,7 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Devantler.K9sCLI", "Devantler.K9sCLI\Devantler.K9sCLI.csproj", "{D9191EE4-2691-4800-B2A7-1FE997B95D55}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Devantler.K9sCLITests", "Devantler.K9sCLITests\Devantler.K9sCLITests.csproj", "{B6B31A36-19D0-4B52-AF09-2329DF3D1EC9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Devantler.K9sCLI.Tests", "Devantler.K9sCLI.Tests\Devantler.K9sCLI.Tests.csproj", "{B6B31A36-19D0-4B52-AF09-2329DF3D1EC9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

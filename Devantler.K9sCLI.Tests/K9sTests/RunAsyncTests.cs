@@ -1,7 +1,7 @@
 using Devantler.K9sCLI;
 using Devantler.KindCLI;
 
-namespace Devantler.K9sCLITests.K9sTests;
+namespace Devantler.K9sCLI.Tests.K9sTests;
 
 /// <summary>
 /// Tests
