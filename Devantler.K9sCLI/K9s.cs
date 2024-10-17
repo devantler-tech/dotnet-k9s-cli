@@ -59,7 +59,11 @@ public static class K9s
       );
     try
     {
-      _ = await CLI.RunAsync(command, cancellationToken: cancellationToken).ConfigureAwait(false);
+      var (exitCode, result) = await CLI.RunAsync(command, cancellationToken: cancellationToken).ConfigureAwait(false);
+      if (exitCode != 0)
+      {
+        throw new K9sException(result);
+      }
     }
     catch (Exception ex)
     {
