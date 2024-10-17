@@ -1,5 +1,4 @@
 using System.Runtime.InteropServices;
-using Devantler.K9sCLI;
 
 namespace Devantler.K9sCLI.Tests.K9sTests;
 

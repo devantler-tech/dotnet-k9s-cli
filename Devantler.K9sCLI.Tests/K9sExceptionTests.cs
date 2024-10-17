@@ -1,5 +1,3 @@
-using Devantler.K9sCLI;
-
 namespace Devantler.K9sCLI.Tests;
 
 /// <summary>
