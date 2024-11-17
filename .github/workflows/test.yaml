@@ -25,6 +25,8 @@ jobs:
         uses: actions/checkout@v4
       - name: ⚙️ Setup .NET
         uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 9
       - name: 🧪 Test
         run: dotnet test --collect:"XPlat Code Coverage"
       - name: 📄 Get Coverage Files
@@ -41,7 +43,7 @@ jobs:
           $coverage_files = $coverage_files -join ','
           echo "COVERAGE_FILES=$coverage_files" >> "$GITHUB_OUTPUT"
       - name: 📄 Upload Code Coverage to CodeCov
-        uses: codecov/codecov-action@v4
+        uses: codecov/codecov-action@v5
         with:
           files: ${{ steps.get_coverage_files.outputs.COVERAGE_FILES }}
           fail_ci_if_error: true
