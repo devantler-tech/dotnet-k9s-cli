@@ -48,16 +48,22 @@ public static class K9s
   /// <returns></returns>
   public static async Task RunAsync(Editor editor = Editor.Nano, string? kubeconfig = default, string? context = default, CancellationToken cancellationToken = default)
   {
-    Environment.SetEnvironmentVariable("EDITOR", editor.ToString().ToLower(CultureInfo.CurrentCulture));
-    Environment.SetEnvironmentVariable("KUBE_EDITOR", editor.ToString().ToLower(CultureInfo.CurrentCulture));
     kubeconfig ??= Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), ".kube", "config");
     var command = string.IsNullOrEmpty(context) ?
       Command.WithArguments(
         ["--kubeconfig", kubeconfig]
-      ) :
+      ).WithEnvironmentVariables(new Dictionary<string, string?>
+      {
+        ["EDITOR"] = editor.ToString().ToLower(CultureInfo.CurrentCulture),
+        ["KUBE_EDITOR"] = editor.ToString().ToLower(CultureInfo.CurrentCulture)
+      }) :
       Command.WithArguments(
         ["--kubeconfig", kubeconfig, "--context", context]
-      );
+      ).WithEnvironmentVariables(new Dictionary<string, string?>
+      {
+        ["EDITOR"] = editor.ToString().ToLower(CultureInfo.CurrentCulture),
+        ["KUBE_EDITOR"] = editor.ToString().ToLower(CultureInfo.CurrentCulture)
+      });
     try
     {
       _ = await CLI.RunAsync(command, cancellationToken: cancellationToken).ConfigureAwait(false);
