@@ -1,65 +1,23 @@
-using Devantler.KindCLI;
+using CliWrap;
 
 namespace Devantler.K9sCLI.Tests.K9sTests;
 
 /// <summary>
-/// Tests
+/// Tests for the <see cref="K9s.RunAsync(string[], CommandResultValidation, bool, bool, CancellationToken)" /> method.
 /// </summary>
-[Collection("Flux")]
 public class RunAsyncTests
 {
   /// <summary>
-  /// Test RunAsync executes K9s CLI on the default context in the kubeconfig file when no properties are set.
+  /// Tests that the binary can return the version of the k9s CLI command.
   /// </summary>
   [Fact]
-  public async Task RunAsync_WithNoPropertiesSet_StartsK9sAsync()
+  public async Task RunAsync_Version_ReturnsVersion()
   {
     // Arrange
-    string clusterName = "test-cluster";
-    string configPath = Path.Combine(AppContext.BaseDirectory, "assets/kind-config.yaml");
-    using var source = new CancellationTokenSource();
-    var cancellationToken1 = source.Token;
-    var cancellationToken2 = new CancellationToken();
+    var (exitCode, message) = await K9s.RunAsync(["version", "-s"]);
 
-    // Act
-    await Kind.DeleteClusterAsync(clusterName, cancellationToken1);
-    await Kind.CreateClusterAsync(clusterName, configPath, cancellationToken1);
-    var task = K9s.RunAsync(cancellationToken: cancellationToken1);
-    await Task.Delay(5000);
-    await source.CancelAsync();
-    await task.ConfigureAwait(true);
-
-    // Cleanup
-    await Kind.DeleteClusterAsync(clusterName, cancellationToken2);
-  }
-
-  /// <summary>
-  /// Test that RunAsync executes K9s CLI on the specified context in the specified kubeconfig file when all properties are set.
-  /// </summary>
-  /// <returns></returns>
-  [Fact]
-  public async Task RunAsync_WithAllPropertiesSet_StartsK9sAsync()
-  {
-    // Arrange
-    string clusterName = "test-cluster";
-    string configPath = Path.Combine(AppContext.BaseDirectory, "assets/kind-config.yaml");
-    using var source = new CancellationTokenSource();
-    var cancellationToken1 = source.Token;
-    var cancellationToken2 = new CancellationToken();
-
-    // Act
-    await Kind.DeleteClusterAsync(clusterName, cancellationToken1);
-    await Kind.CreateClusterAsync(clusterName, configPath, cancellationToken1);
-    var task = K9s.RunAsync(
-      Editor.Nano,
-      $"{Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)}/.kube/config",
-      $"kind-{clusterName}", cancellationToken1
-    );
-    await Task.Delay(5000);
-    await source.CancelAsync();
-    await task.ConfigureAwait(true);
-
-    // Cleanup
-    await Kind.DeleteClusterAsync(clusterName, cancellationToken2);
+    // Assert
+    Assert.Equal(0, exitCode);
+    Assert.Matches(@"Version\s+v\d+\.\d+\.\d+", message.Split(Environment.NewLine).First().Trim());
   }
 }

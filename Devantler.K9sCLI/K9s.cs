@@ -39,6 +39,30 @@ public static class K9s
   }
 
   /// <summary>
+  /// Runs the k9s CLI command with the given arguments.
+  /// </summary>
+  /// <param name="arguments"></param>
+  /// <param name="validation"></param>
+  /// <param name="silent"></param>
+  /// <param name="includeStdErr"></param>
+  /// <param name="cancellationToken"></param>
+  /// <returns></returns>
+  public static async Task<(int ExitCode, string Message)> RunAsync(
+    string[] arguments,
+    CommandResultValidation validation = CommandResultValidation.ZeroExitCode,
+    bool silent = false,
+    bool includeStdErr = true,
+    CancellationToken cancellationToken = default)
+  {
+    return await CLI.RunAsync(
+      Command.WithArguments(arguments),
+      validation: validation,
+      silent: silent,
+      includeStdErr: includeStdErr,
+      cancellationToken: cancellationToken).ConfigureAwait(false);
+  }
+
+  /// <summary>
   /// Run the K9s CLI.
   /// </summary>
   /// <param name="editor"></param>
@@ -46,6 +70,7 @@ public static class K9s
   /// <param name="context"></param>
   /// <param name="cancellationToken"></param>
   /// <returns></returns>
+  [Obsolete("This method is deprecated. Use the RunAsync method instead.")]
   public static async Task RunAsync(Editor editor = Editor.Nano, string? kubeconfig = default, string? context = default, CancellationToken cancellationToken = default)
   {
     kubeconfig ??= Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), ".kube", "config");
