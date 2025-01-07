@@ -28,10 +28,9 @@
 │       └── win-x64
 │           └── native
 └── Devantler.K9sCLI.Tests
-    ├── K9sTests
-    └── assets
+    └── K9sTests
 
-20 directories
+19 directories
 ```
 <!-- readme-tree end -->
 
