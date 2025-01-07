@@ -54,12 +54,5 @@ You can execute the K9s CLI commands using the `K9s` class.
 ```csharp
 using Devantler.K9sCLI;
 
-// Run K9s on with your user profile kubeconfig and the default context
-_ = await K9s.RunAsync(cancellationToken: cancellationToken);
-
-// Run K9s on with a specific kubeconfig and context
-_ = await K9s.RunAsync("path/to/kubeconfig", "context", cancellationToken);
-
-// Run K9s with a specific editor
-_ = await K9s.RunAsync(Editor.Vim, cancellationToken: cancellationToken);
+var (exitCode, message) = await K9s.RunAsync(["arg1", "arg2"]);
 ```
