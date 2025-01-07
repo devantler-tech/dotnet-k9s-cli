@@ -18,6 +18,6 @@ public class RunAsyncTests
 
     // Assert
     Assert.Equal(0, exitCode);
-    Assert.Matches(@"Version\s+\d+\.\d+\.\d+", message.Split(Environment.NewLine).First().Trim());
+    Assert.Matches(@"Version\s+v\d+\.\d+\.\d+", message.Split(Environment.NewLine).First().Trim());
   }
 }
