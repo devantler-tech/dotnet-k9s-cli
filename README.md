@@ -30,7 +30,7 @@
 └── Devantler.K9sCLI.Tests
     └── K9sTests
 
-19 directories
+20 directories
 ```
 <!-- readme-tree end -->
 
