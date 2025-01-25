@@ -53,5 +53,5 @@ You can execute the K9s CLI commands using the `K9s` class.
 ```csharp
 using Devantler.K9sCLI;
 
-var (exitCode, message) = await K9s.RunAsync(["arg1", "arg2"]);
+var (exitCode, output) = await K9s.RunAsync(["arg1", "arg2"]);
 ```
