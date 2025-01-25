@@ -14,10 +14,10 @@ public class RunAsyncTests
   public async Task RunAsync_Version_ReturnsVersion()
   {
     // Arrange
-    var (exitCode, message) = await K9s.RunAsync(["version", "-s"]);
+    var (exitCode, output) = await K9s.RunAsync(["version", "-s"]);
 
     // Assert
     Assert.Equal(0, exitCode);
-    Assert.Matches(@"Version\s+v\d+\.\d+\.\d+", message.Split(Environment.NewLine).First().Trim());
+    Assert.Matches(@"Version\s+v\d+\.\d+\.\d+", output.Split(Environment.NewLine).First().Trim());
   }
 }
