@@ -1,7 +1,5 @@
-﻿using System.Globalization;
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
 using CliWrap;
-using CliWrap.Exceptions;
 using Devantler.CLIRunner;
 
 namespace Devantler.K9sCLI;
@@ -60,42 +58,5 @@ public static class K9s
       silent: silent,
       includeStdErr: includeStdErr,
       cancellationToken: cancellationToken).ConfigureAwait(false);
-  }
-
-  /// <summary>
-  /// Run the K9s CLI.
-  /// </summary>
-  /// <param name="editor"></param>
-  /// <param name="kubeconfig"></param>
-  /// <param name="context"></param>
-  /// <param name="cancellationToken"></param>
-  /// <returns></returns>
-  [Obsolete("This method is deprecated. Use the RunAsync method instead.")]
-  public static async Task RunAsync(Editor editor = Editor.Nano, string? kubeconfig = default, string? context = default, CancellationToken cancellationToken = default)
-  {
-    kubeconfig ??= Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), ".kube", "config");
-    var command = string.IsNullOrEmpty(context) ?
-      Command.WithArguments(
-        ["--kubeconfig", kubeconfig]
-      ).WithEnvironmentVariables(new Dictionary<string, string?>
-      {
-        ["EDITOR"] = editor.ToString().ToLower(CultureInfo.CurrentCulture),
-        ["KUBE_EDITOR"] = editor.ToString().ToLower(CultureInfo.CurrentCulture)
-      }) :
-      Command.WithArguments(
-        ["--kubeconfig", kubeconfig, "--context", context]
-      ).WithEnvironmentVariables(new Dictionary<string, string?>
-      {
-        ["EDITOR"] = editor.ToString().ToLower(CultureInfo.CurrentCulture),
-        ["KUBE_EDITOR"] = editor.ToString().ToLower(CultureInfo.CurrentCulture)
-      });
-    try
-    {
-      _ = await CLI.RunAsync(command, cancellationToken: cancellationToken).ConfigureAwait(false);
-    }
-    catch (CommandExecutionException ex)
-    {
-      throw new K9sException(ex.Message);
-    }
   }
 }
