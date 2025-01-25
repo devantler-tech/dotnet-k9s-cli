@@ -1,7 +1,5 @@
-﻿using System.Globalization;
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
 using CliWrap;
-using CliWrap.Exceptions;
 using Devantler.CLIRunner;
 
 namespace Devantler.K9sCLI;
