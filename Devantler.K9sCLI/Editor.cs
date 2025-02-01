@@ -10,11 +10,12 @@ public enum Editor
   /// <summary>
   /// Nano
   /// </summary>
-  [EnumMember(Value = "nano")]
+  [EnumMember(Value = "/usr/bin/nano")]
   Nano,
+
   /// <summary>
   /// Vim
   /// </summary>
-  [EnumMember(Value = "vim")]
+  [EnumMember(Value = "/usr/bin/vim")]
   Vim
 }
