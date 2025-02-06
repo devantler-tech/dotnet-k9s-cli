@@ -1,5 +1,3 @@
-using System.Runtime.Serialization;
-
 namespace Devantler.K9sCLI;
 
 /// <summary>
@@ -10,12 +8,10 @@ public enum Editor
   /// <summary>
   /// Nano
   /// </summary>
-  [EnumMember(Value = "/usr/bin/nano")]
   Nano,
 
   /// <summary>
   /// Vim
   /// </summary>
-  [EnumMember(Value = "/usr/bin/vim")]
   Vim
 }
