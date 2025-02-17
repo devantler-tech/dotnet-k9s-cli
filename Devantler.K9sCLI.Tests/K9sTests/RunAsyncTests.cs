@@ -17,7 +17,7 @@ public class RunAsyncTests
     var (exitCode, output) = await K9s.RunAsync(["version", "-s"]);
 
     // Assert
-    Assert.Matches(@"Version\s+v\d+\.\d+\.\d+", output.Split(Environment.NewLine).First().Trim());
     Assert.Equal(0, exitCode);
+    Assert.Matches(@"Version\s+v\d+\.\d+\.\d+", output.Split(Environment.NewLine).First().Trim());
   }
 }
