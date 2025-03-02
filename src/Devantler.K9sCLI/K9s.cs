@@ -59,11 +59,11 @@ public static class K9s
     CancellationToken cancellationToken = default)
   {
     using var stdIn = Console.OpenStandardInput();
-    using var stdOut = Console.OpenStandardInput();
+    using var stdOut = Console.OpenStandardOutput();
     using var stdErr = Console.OpenStandardError();
     var command = Command.WithArguments(arguments)
       .WithValidation(validation)
-      .WithStandardInputPipe(PipeSource.FromStream(stdIn))
+      .WithStandardInputPipe(silent ? PipeSource.Null : PipeSource.FromStream(stdIn))
       .WithStandardOutputPipe(silent ? PipeTarget.Null : PipeTarget.ToStream(stdOut))
       .WithStandardErrorPipe(silent || !includeStdErr ? PipeTarget.Null : PipeTarget.ToStream(stdErr));
     var result = await command.ExecuteBufferedAsync(cancellationToken);
