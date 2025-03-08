@@ -3,7 +3,7 @@ using CliWrap;
 namespace Devantler.K9sCLI.Tests.K9sTests;
 
 /// <summary>
-/// Tests for the <see cref="K9s.RunAsync(string[], CommandResultValidation, bool, bool, CancellationToken)" /> method.
+/// Tests for the <see cref="K9s.RunAsync(string[], CommandResultValidation, CancellationToken)" /> method.
 /// </summary>
 public class RunAsyncTests
 {
