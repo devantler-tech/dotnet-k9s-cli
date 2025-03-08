@@ -48,15 +48,11 @@ public static class K9s
   /// </summary>
   /// <param name="arguments"></param>
   /// <param name="validation"></param>
-  /// <param name="silent"></param>
-  /// <param name="includeStdErr"></param>
   /// <param name="cancellationToken"></param>
   /// <returns></returns>
   public static async Task<(int ExitCode, string Message)> RunAsync(
     string[] arguments,
     CommandResultValidation validation = CommandResultValidation.ZeroExitCode,
-    bool silent = false,
-    bool includeStdErr = true,
     CancellationToken cancellationToken = default)
   {
     using var stdInConsole = Console.OpenStandardInput();
