@@ -23,7 +23,7 @@ jobs:
         with:
           lfs: true
           token: ${{ steps.generate-token.outputs.token }}
-          branch-token: ${{ steps.generate-token.outputs.token }}
+          branch-token: ${{ secrets.GITHUB_TOKEN }}
       - name: ⤵️ Get K9s binary
         run: |
           ./.github/scripts/get-k9s-binary.sh
