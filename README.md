@@ -11,8 +11,8 @@
 ```
 .
 ├── .github
-│   ├── scripts
 │   └── workflows
+├── scripts
 ├── src
 │   └── Devantler.K9sCLI
 │       └── runtimes
