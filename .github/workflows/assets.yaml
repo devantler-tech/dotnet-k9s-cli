@@ -41,7 +41,7 @@ jobs:
         with:
           commit-message: "feat: Update  K9s binary to ${{ env.BINARY_VERSION }}"
           title: "feat: Update K9s to ${{ env.BINARY_VERSION }}"
-          committer: devantler nikolaiemildamm@icloud.com
+          committer: devantler <nikolaiemildamm@icloud.com>
           body: |
             This PR updates the K9s binary used by Devantler.K9sCLI to ${{ env.BINARY_VERSION }}.
           branch: update-k9s-binary
