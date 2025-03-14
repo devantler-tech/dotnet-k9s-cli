@@ -45,4 +45,5 @@ jobs:
           signoff: true
           token: ${{ steps.generate-token.outputs.token }}
           branch-token: ${{ steps.generate-token.outputs.token }}
-          sign-commits: true
+          # TODO: Enable signing of commits, when this works for Git LFS
+          sign-commits: false
