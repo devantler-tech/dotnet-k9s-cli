@@ -17,6 +17,12 @@ jobs:
         with:
           app_id: ${{ vars.APP_ID }}
           private_key: ${{ secrets.APP_PRIVATE_KEY }}
+      - uses: crazy-max/ghaction-import-gpg@v5
+        with:
+          gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
+          passphrase: ${{ secrets.GPG_PASSPHRASE }}
+          git_user_signingkey: true
+          git_commit_gpgsign: true
       - uses: actions/checkout@v4
         with:
           lfs: true
@@ -35,6 +41,7 @@ jobs:
         with:
           commit-message: "feat: Update  K9s binary to ${{ env.BINARY_VERSION }}"
           title: "feat: Update K9s to ${{ env.BINARY_VERSION }}"
+          committer: devantler nikolaiemildamm@icloud.com
           body: |
             This PR updates the K9s binary used by Devantler.K9sCLI to ${{ env.BINARY_VERSION }}.
           branch: update-k9s-binary
@@ -45,5 +52,3 @@ jobs:
           signoff: true
           token: ${{ steps.generate-token.outputs.token }}
           branch-token: ${{ steps.generate-token.outputs.token }}
-          # TODO: Enable signing of commits, when this works for Git LFS
-          sign-commits: false
