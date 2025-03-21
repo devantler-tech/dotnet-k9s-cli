@@ -15,3 +15,5 @@ jobs:
       BINARY_NAME: k9s
       DOTNET_PROJECT_NAME: Devantler.K9sCLI
       SCRIPT_PATH: scripts/get-k9s-binary.sh
+      # only get the first line
+      VERSION_ARGS: version --short | awk '{print $2}' | head -n 1
