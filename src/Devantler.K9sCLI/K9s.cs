@@ -50,7 +50,7 @@ public static class K9s
   /// <param name="validation"></param>
   /// <param name="cancellationToken"></param>
   /// <returns></returns>
-  public static async Task<(int ExitCode, string Message)> RunAsync(
+  public static async Task<int> RunAsync(
     string[] arguments,
     CommandResultValidation validation = CommandResultValidation.ZeroExitCode,
     CancellationToken cancellationToken = default)
@@ -63,7 +63,7 @@ public static class K9s
       .WithStandardInputPipe(PipeSource.FromStream(stdInConsole))
       .WithStandardOutputPipe(PipeTarget.ToStream(stdOutConsole))
       .WithStandardErrorPipe(PipeTarget.ToStream(stdErrConsole));
-    var result = await command.ExecuteBufferedAsync(cancellationToken);
-    return (result.ExitCode, result.StandardOutput + result.StandardError);
+    var result = await command.ExecuteAsync(cancellationToken);
+    return result.ExitCode;
   }
 }
