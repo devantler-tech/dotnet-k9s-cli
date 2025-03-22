@@ -1,7 +1,6 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
 using System.Text;
-using CliWrap;
-using CliWrap.Buffered;
 
 namespace Devantler.K9sCLI;
 
@@ -13,9 +12,9 @@ public static class K9s
   /// <summary>
   /// The K9s CLI command.
   /// </summary>
-  static Command Command => GetCommand();
+  static string BinaryPath => GetBinaryPath();
 
-  internal static Command GetCommand(PlatformID? platformID = default, Architecture? architecture = default, string? runtimeIdentifier = default)
+  internal static string GetBinaryPath(PlatformID? platformID = default, Architecture? architecture = default, string? runtimeIdentifier = default)
   {
     platformID ??= Environment.OSVersion.Platform;
     architecture ??= RuntimeInformation.ProcessArchitecture;
@@ -40,30 +39,29 @@ public static class K9s
     {
       File.SetUnixFileMode(binaryPath, UnixFileMode.UserExecute | UnixFileMode.GroupExecute | UnixFileMode.OtherExecute);
     }
-    return Cli.Wrap(binaryPath);
+    return binaryPath;
   }
 
   /// <summary>
   /// Runs the k9s CLI command with the given arguments.
   /// </summary>
   /// <param name="arguments"></param>
-  /// <param name="validation"></param>
   /// <param name="cancellationToken"></param>
   /// <returns></returns>
   public static async Task<int> RunAsync(
     string[] arguments,
-    CommandResultValidation validation = CommandResultValidation.ZeroExitCode,
     CancellationToken cancellationToken = default)
   {
-    using var stdInConsole = Console.OpenStandardInput();
-    using var stdOutConsole = Console.OpenStandardOutput();
-    using var stdErrConsole = Console.OpenStandardError();
-    var command = Command.WithArguments(arguments)
-      .WithValidation(validation)
-      .WithStandardInputPipe(PipeSource.FromStream(stdInConsole))
-      .WithStandardOutputPipe(PipeTarget.ToStream(stdOutConsole))
-      .WithStandardErrorPipe(PipeTarget.ToStream(stdErrConsole));
-    var result = await command.ExecuteAsync(cancellationToken);
-    return result.ExitCode;
+    // call k9s binary with the given arguments without cliwrap
+    var process = new ProcessStartInfo
+    {
+      FileName = BinaryPath,
+      Arguments = string.Join(' ', arguments),
+      UseShellExecute = true,
+      CreateNoWindow = true,
+    };
+    using var proc = Process.Start(process) ?? throw new InvalidOperationException("Failed to start k9s process.");
+    await proc.WaitForExitAsync(cancellationToken).ConfigureAwait(false);
+    return proc.ExitCode;
   }
 }

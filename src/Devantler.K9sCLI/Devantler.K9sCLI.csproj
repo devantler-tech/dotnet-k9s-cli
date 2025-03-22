@@ -12,10 +12,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="CLIWrap" Version="3.8.2" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Include="runtimes/*/native/*">
       <Link>%(Filename)%(Extension)</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
