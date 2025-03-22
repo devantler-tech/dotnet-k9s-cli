@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 namespace Devantler.K9sCLI.Tests.K9sTests;
 
 /// <summary>
-/// Tests for the <see cref="K9s.GetBinaryPath(PlatformID?, Architecture?, string?)"/> method.
+/// Tests for the <see cref="K9s.GetCommand(PlatformID?, Architecture?, string?)"/> method.
 /// </summary>
 public class GetCommandTests
 {
@@ -18,7 +18,7 @@ public class GetCommandTests
       string expectedBinary = "k9s-osx-x64";
 
       // Act
-      string actualBinary = Path.GetFileName(K9s.GetBinaryPath(PlatformID.Unix, Architecture.X64, "osx-x64"));
+      string actualBinary = Path.GetFileName(K9s.GetCommand(PlatformID.Unix, Architecture.X64, "osx-x64").TargetFilePath);
 
       // Assert
       Assert.Equal(expectedBinary, actualBinary);
@@ -35,7 +35,7 @@ public class GetCommandTests
     string expectedBinary = "k9s-osx-arm64";
 
     // Act
-    string actualBinary = Path.GetFileName(K9s.GetBinaryPath(PlatformID.Unix, Architecture.Arm64, "osx-arm64"));
+    string actualBinary = Path.GetFileName(K9s.GetCommand(PlatformID.Unix, Architecture.Arm64, "osx-arm64").TargetFilePath);
 
     // Assert
     Assert.Equal(expectedBinary, actualBinary);
@@ -51,7 +51,7 @@ public class GetCommandTests
     string expectedBinary = "k9s-linux-arm64";
 
     // Act
-    string actualBinary = Path.GetFileName(K9s.GetBinaryPath(PlatformID.Unix, Architecture.Arm64, "linux-arm64"));
+    string actualBinary = Path.GetFileName(K9s.GetCommand(PlatformID.Unix, Architecture.Arm64, "linux-arm64").TargetFilePath);
 
     // Assert
     Assert.Equal(expectedBinary, actualBinary);
@@ -67,7 +67,7 @@ public class GetCommandTests
     string expectedBinary = "k9s-win-x64.exe";
 
     // Act
-    string actualBinary = Path.GetFileName(K9s.GetBinaryPath(PlatformID.Win32NT, Architecture.X64, "win-x64"));
+    string actualBinary = Path.GetFileName(K9s.GetCommand(PlatformID.Win32NT, Architecture.X64, "win-x64").TargetFilePath);
 
     // Assert
     Assert.Equal(expectedBinary, actualBinary);
@@ -83,7 +83,7 @@ public class GetCommandTests
     string expectedBinary = "k9s-win-arm64.exe";
 
     // Act
-    string actualBinary = Path.GetFileName(K9s.GetBinaryPath(PlatformID.Win32NT, Architecture.Arm64, "win-arm64"));
+    string actualBinary = Path.GetFileName(K9s.GetCommand(PlatformID.Win32NT, Architecture.Arm64, "win-arm64").TargetFilePath);
 
     // Assert
     Assert.Equal(expectedBinary, actualBinary);
@@ -101,7 +101,7 @@ public class GetCommandTests
     string runtimeIdentifier = "wasm";
 
     // Act
-    void Act() => K9s.GetBinaryPath(platformID, architecture, runtimeIdentifier);
+    void Act() => K9s.GetCommand(platformID, architecture, runtimeIdentifier);
 
     // Assert
     _ = Assert.Throws<PlatformNotSupportedException>(Act);
