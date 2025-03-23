@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Runtime.InteropServices;
-using System.Text;
+using CliWrap;
 
 namespace Devantler.K9sCLI;
 
@@ -12,9 +12,9 @@ public static class K9s
   /// <summary>
   /// The K9s CLI command.
   /// </summary>
-  static string BinaryPath => GetBinaryPath();
+  static Command Command => GetCommand();
 
-  internal static string GetBinaryPath(PlatformID? platformID = default, Architecture? architecture = default, string? runtimeIdentifier = default)
+  internal static Command GetCommand(PlatformID? platformID = default, Architecture? architecture = default, string? runtimeIdentifier = default)
   {
     platformID ??= Environment.OSVersion.Platform;
     architecture ??= RuntimeInformation.ProcessArchitecture;
@@ -39,7 +39,7 @@ public static class K9s
     {
       File.SetUnixFileMode(binaryPath, UnixFileMode.UserExecute | UnixFileMode.GroupExecute | UnixFileMode.OtherExecute);
     }
-    return binaryPath;
+    return Cli.Wrap(binaryPath);
   }
 
   /// <summary>
@@ -55,7 +55,7 @@ public static class K9s
     // call k9s binary with the given arguments without cliwrap
     var process = new ProcessStartInfo
     {
-      FileName = BinaryPath,
+      FileName = Command.TargetFilePath,
       Arguments = string.Join(' ', arguments),
       UseShellExecute = true,
       CreateNoWindow = true,
