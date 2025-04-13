@@ -12,7 +12,7 @@ public class RunAsyncTests
   public async Task RunAsync_Version_ReturnsVersion()
   {
     // Arrange
-    var exitCode = await K9s.RunAsync(["version", "-s"]);
+    int exitCode = await K9s.RunAsync(["version", "-s"]);
 
     // Assert
     Assert.Equal(0, exitCode);
