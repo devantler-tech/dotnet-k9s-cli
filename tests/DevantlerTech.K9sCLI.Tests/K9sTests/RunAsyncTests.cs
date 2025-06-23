@@ -1,4 +1,4 @@
-namespace Devantler.K9sCLI.Tests.K9sTests;
+namespace DevantlerTech.K9sCLI.Tests.K9sTests;
 
 /// <summary>
 /// Tests for the <see cref="K9s.RunAsync(string[], CancellationToken)" /> method.

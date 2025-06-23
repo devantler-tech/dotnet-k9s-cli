@@ -5,9 +5,9 @@
     <Platform Name="x86" />
   </Configurations>
   <Folder Name="/src/">
-    <Project Path="src/Devantler.K9sCLI/Devantler.K9sCLI.csproj" />
+    <Project Path="src/DevantlerTech.K9sCLI/DevantlerTech.K9sCLI.csproj" />
   </Folder>
   <Folder Name="/tests/">
-    <Project Path="tests/Devantler.K9sCLI.Tests/Devantler.K9sCLI.Tests.csproj" />
+    <Project Path="tests/DevantlerTech.K9sCLI.Tests/DevantlerTech.K9sCLI.Tests.csproj" />
   </Folder>
 </Solution>
