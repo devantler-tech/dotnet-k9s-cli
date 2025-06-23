@@ -11,28 +11,25 @@ public static class K9s
   /// <summary>
   /// The K9s CLI command.
   /// </summary>
-  public static Command Command
+  public static Command GetCommand()
   {
-    get
-    {
-      string binaryName = OperatingSystem.IsWindows() ? "k9s.exe" : "k9s";
-      string? pathEnv = Environment.GetEnvironmentVariable("PATH");
+    string binaryName = OperatingSystem.IsWindows() ? "k9s.exe" : "k9s";
+    string? pathEnv = Environment.GetEnvironmentVariable("PATH");
 
-      if (!string.IsNullOrEmpty(pathEnv))
+    if (!string.IsNullOrEmpty(pathEnv))
+    {
+      string[] paths = pathEnv.Split(Path.PathSeparator);
+      foreach (string dir in paths)
       {
-        string[] paths = pathEnv.Split(Path.PathSeparator);
-        foreach (string dir in paths)
+        string fullPath = Path.Combine(dir, binaryName);
+        if (File.Exists(fullPath))
         {
-          string fullPath = Path.Combine(dir, binaryName);
-          if (File.Exists(fullPath))
-          {
-            return Cli.Wrap(fullPath);
-          }
+          return Cli.Wrap(fullPath);
         }
       }
-
-      throw new FileNotFoundException($"The '{binaryName}' CLI was not found in PATH.");
     }
+
+    throw new FileNotFoundException($"The '{binaryName}' CLI was not found in PATH.");
   }
 
   /// <summary>
@@ -48,7 +45,7 @@ public static class K9s
     // call k9s binary with the given arguments without cliwrap
     var process = new ProcessStartInfo
     {
-      FileName = Command.TargetFilePath,
+      FileName = GetCommand().TargetFilePath,
       Arguments = string.Join(' ', arguments),
       UseShellExecute = true,
       CreateNoWindow = true,
