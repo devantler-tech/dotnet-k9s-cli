@@ -2,7 +2,7 @@
 using System.Runtime.InteropServices;
 using CliWrap;
 
-namespace Devantler.K9sCLI;
+namespace DevantlerTech.K9sCLI;
 
 /// <summary>
 /// A class to run k9s CLI commands.
@@ -12,34 +12,28 @@ public static class K9s
   /// <summary>
   /// The K9s CLI command.
   /// </summary>
-  static Command Command => GetCommand();
-
-  internal static Command GetCommand(PlatformID? platformID = default, Architecture? architecture = default, string? runtimeIdentifier = default)
+  static Command Command
   {
-    platformID ??= Environment.OSVersion.Platform;
-    architecture ??= RuntimeInformation.ProcessArchitecture;
-    runtimeIdentifier ??= RuntimeInformation.RuntimeIdentifier;
+    get
+    {
+      string binaryName = "k9s";
+      string? pathEnv = Environment.GetEnvironmentVariable("PATH");
 
-    string binary = (platformID, architecture, runtimeIdentifier) switch
-    {
-      (PlatformID.Unix, Architecture.X64, "osx-x64") => "k9s-osx-x64",
-      (PlatformID.Unix, Architecture.Arm64, "osx-arm64") => "k9s-osx-arm64",
-      (PlatformID.Unix, Architecture.X64, "linux-x64") => "k9s-linux-x64",
-      (PlatformID.Unix, Architecture.Arm64, "linux-arm64") => "k9s-linux-arm64",
-      (PlatformID.Win32NT, Architecture.X64, "win-x64") => "k9s-win-x64.exe",
-      (PlatformID.Win32NT, Architecture.Arm64, "win-arm64") => "k9s-win-arm64.exe",
-      _ => throw new PlatformNotSupportedException($"Unsupported platform: {Environment.OSVersion.Platform} {RuntimeInformation.ProcessArchitecture}"),
-    };
-    string binaryPath = Path.Combine(AppContext.BaseDirectory, binary);
-    if (!File.Exists(binaryPath))
-    {
-      throw new FileNotFoundException($"{binaryPath} not found.");
+      if (!string.IsNullOrEmpty(pathEnv))
+      {
+        string[] paths = pathEnv.Split(Path.PathSeparator);
+        foreach (string dir in paths)
+        {
+          string fullPath = Path.Combine(dir, binaryName);
+          if (File.Exists(fullPath))
+          {
+            return Cli.Wrap(fullPath);
+          }
+        }
+      }
+
+      throw new FileNotFoundException($"The '{binaryName}' CLI was not found in PATH.");
     }
-    if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-    {
-      File.SetUnixFileMode(binaryPath, UnixFileMode.UserExecute | UnixFileMode.GroupExecute | UnixFileMode.OtherExecute);
-    }
-    return Cli.Wrap(binaryPath);
   }
 
   /// <summary>

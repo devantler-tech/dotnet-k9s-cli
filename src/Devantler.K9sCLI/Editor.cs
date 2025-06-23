@@ -1,4 +1,4 @@
-namespace Devantler.K9sCLI;
+namespace DevantlerTech.K9sCLI;
 
 /// <summary>
 /// The editor to use for viewing files while debugging.
