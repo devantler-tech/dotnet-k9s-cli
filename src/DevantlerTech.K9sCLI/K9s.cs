@@ -11,7 +11,7 @@ public static class K9s
   /// <summary>
   /// The K9s CLI command.
   /// </summary>
-  static Command Command
+  public static Command Command
   {
     get
     {
