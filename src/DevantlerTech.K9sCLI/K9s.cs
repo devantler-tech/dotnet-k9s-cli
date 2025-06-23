@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics;
-using System.Runtime.InteropServices;
 using CliWrap;
 
 namespace DevantlerTech.K9sCLI;
