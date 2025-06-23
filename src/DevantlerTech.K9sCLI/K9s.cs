@@ -15,7 +15,7 @@ public static class K9s
   {
     get
     {
-      string binaryName = "k9s";
+      string binaryName = OperatingSystem.IsWindows() ? "k9s.exe" : "k9s";
       string? pathEnv = Environment.GetEnvironmentVariable("PATH");
 
       if (!string.IsNullOrEmpty(pathEnv))
